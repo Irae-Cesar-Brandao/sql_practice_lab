@@ -1,0 +1,1007 @@
+/*
+ * ============================================================
+ * ESTILIZAÇÃO CSS — SQL Practice Lab
+ * Criado por: Iraê César Brandão
+ * Data: 10-10-2026
+ *
+ * Objetivo:
+ * Definir as cores, os espaçamentos, a organização visual,
+ * os componentes da interface e a adaptação para dispositivos
+ * com diferentes tamanhos de tela.
+ * ============================================================
+ */
+
+
+/* ============================================================
+   1. VARIÁVEIS GLOBAIS DE CORES
+   :root representa o elemento raiz do documento.
+   As variáveis ficam disponíveis em todo o CSS e podem ser
+   reutilizadas com a função var().
+   ============================================================ */
+
+:root {
+    --bg: #0b1020;       /* Cor de fundo principal da aplicação */
+    --panel: #131b2f;    /* Fundo dos painéis e cartões */
+    --panel2: #19243b;   /* Fundo secundário de botões e áreas */
+    --line: #2b3854;     /* Cor das bordas e divisórias */
+    --text: #eef3ff;     /* Cor principal dos textos */
+    --muted: #9eacc7;    /* Cor dos textos secundários */
+    --accent: #65d6c4;   /* Cor de destaque principal */
+    --accent2: #8ba7ff;  /* Segunda cor de destaque */
+    --good: #55d69e;     /* Cor que indica sucesso */
+    --bad: #ff8585;      /* Cor que indica erro */
+    --warn: #ffd27a;     /* Cor que indica alerta */
+}
+
+
+/* ============================================================
+   2. CONFIGURAÇÃO GERAL
+   Aplica box-sizing a todos os elementos.
+   Com border-box, largura e altura incluem conteúdo, padding
+   e borda, facilitando o cálculo das dimensões.
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   3. CORPO DA PÁGINA
+   Define a aparência geral de todo o documento.
+   ============================================================ */
+
+body {
+    margin: 0;                       /* Remove a margem padrão */
+    background: var(--bg);           /* Fundo principal */
+    color: var(--text);              /* Cor padrão do texto */
+    font: 15px/1.5 system-ui,        /* Tamanho e altura da linha */
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;                /* Fontes alternativas */
+}
+
+
+/* ============================================================
+   4. BOTÕES E CAMPOS DE TEXTO
+   Faz os botões, campos de entrada e áreas de texto usarem
+   a mesma família e o mesmo tamanho de fonte da aplicação.
+   ============================================================ */
+
+button,
+input,
+textarea {
+    font: inherit;                   /* Herda a fonte do elemento pai */
+}
+
+
+/* Estilo padrão dos botões. */
+button {
+    cursor: pointer;                 /* Mostra a mão ao passar o mouse */
+    border: 1px solid var(--line);    /* Borda do botão */
+    background: var(--panel2);       /* Fundo do botão */
+    color: var(--text);               /* Cor do texto */
+    padding: 9px 13px;                /* Espaço interno */
+    border-radius: 9px;               /* Cantos arredondados */
+}
+
+
+/* Muda a borda quando o ponteiro passa sobre o botão. */
+button:hover {
+    border-color: var(--accent);
+}
+
+
+/* Botão principal, usado para a ação mais importante. */
+button.primary {
+    background: var(--accent);
+    color: #071522;
+    border-color: var(--accent);
+    font-weight: 750;                 /* Texto em destaque */
+}
+
+
+/* Aparência de um botão desativado. */
+button:disabled {
+    opacity: 0.45;                    /* Reduz a visibilidade */
+    cursor: not-allowed;              /* Indica que não pode ser usado */
+}
+
+
+/* ============================================================
+   5. CABEÇALHO
+   Organiza o conteúdo do cabeçalho em uma linha.
+   O posicionamento sticky mantém o cabeçalho visível durante
+   a rolagem da página.
+   ============================================================ */
+
+header {
+    display: flex;                    /* Layout flexível */
+    align-items: center;               /* Alinha itens verticalmente */
+    justify-content: space-between;    /* Distribui os itens */
+    gap: 18px;                         /* Espaço entre os itens */
+    padding: 17px 22px;                /* Espaçamento interno */
+    border-bottom: 1px solid var(--line);
+    background: #0e1528;
+    position: sticky;                  /* Mantém no topo ao rolar */
+    top: 0;
+    z-index: 5;                        /* Mantém sobre outros elementos */
+}
+
+
+/* Agrupa a marca, o logotipo e as informações da aplicação. */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* Aparência do quadrado que contém o logotipo. */
+.logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;               /* Centraliza o conteúdo */
+    background: linear-gradient(
+        135deg,
+        var(--accent),
+        var(--accent2)
+    );
+    color: #0b1020;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+
+/* Título da marca no cabeçalho. */
+.brand h1 {
+    margin: 0;
+    font-size: 19px;
+}
+
+
+/* Texto secundário que acompanha a marca. */
+.brand p {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* Grupo de estatísticas exibidas no cabeçalho. */
+.headerstats {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+
+/* Texto descritivo de cada estatística. */
+.stat {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+/* Valor principal da estatística. */
+.stat strong {
+    display: block;                   /* Coloca o valor em outra linha */
+    color: var(--text);
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   6. ESTRUTURA PRINCIPAL DA APLICAÇÃO
+   Divide a interface em duas colunas:
+   uma barra lateral e uma área principal de conteúdo.
+   ============================================================ */
+
+.app {
+    display: grid;
+    grid-template-columns: 245px minmax(0, 1fr);
+    /*
+     * Primeira coluna: barra lateral de 245px.
+     * Segunda coluna: ocupa o espaço restante.
+     * minmax(0, 1fr) permite que a coluna encolha corretamente.
+     */
+    min-height: calc(100vh - 76px);
+    /* Altura mínima da tela, descontando o cabeçalho. */
+}
+
+
+/* ============================================================
+   7. BARRA LATERAL
+   Contém a navegação entre os módulos e o progresso.
+   ============================================================ */
+
+aside {
+    background: #0e1528;
+    border-right: 1px solid var(--line);
+    padding: 17px 12px;
+}
+
+
+/* Títulos pequenos que identificam grupos de navegação. */
+.side-title {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;         /* Converte o texto em maiúsculas */
+    letter-spacing: 1.2px;             /* Espaçamento entre letras */
+    padding: 8px 10px;
+}
+
+
+/* Botões de navegação dos módulos. */
+.module-btn {
+    width: 100%;                       /* Ocupa a largura disponível */
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    text-align: left;
+    margin: 3px 0;
+    background: transparent;           /* Fundo transparente */
+    border-color: transparent;
+    padding: 10px;
+}
+
+
+/* Aparência do módulo selecionado. */
+.module-btn.active {
+    background: var(--panel2);
+    border-color: var(--line);
+}
+
+
+/* Caixa numérica que identifica cada módulo. */
+.module-num {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;                    /* Mantém as dimensões fixas */
+    border-radius: 8px;
+    background: #24324e;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* Número do módulo quando ele está selecionado. */
+.module-btn.active .module-num {
+    background: var(--accent);
+    color: #061522;
+}
+
+
+/* Nome de cada módulo. */
+.module-name {
+    font-weight: 650;
+    font-size: 13px;
+    display: block;
+}
+
+
+/* Informações adicionais do módulo. */
+.module-meta {
+    font-size: 11px;
+    color: var(--muted);
+    display: block;
+    margin-top: 2px;
+}
+
+
+/* Área que envolve a barra de progresso. */
+.progress-wrap {
+    padding: 12px 10px 16px;
+}
+
+
+/* Linha com a descrição e o percentual de progresso. */
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+
+/* Trilho de fundo da barra de progresso. */
+.track {
+    height: 7px;
+    background: #26324b;
+    border-radius: 9px;
+    overflow: hidden;                  /* Esconde o excesso do preenchimento */
+}
+
+
+/* Parte preenchida da barra de progresso. */
+.track > div {
+    height: 100%;
+    background: var(--accent);
+    width: 0;                          /* Começa sem preenchimento */
+    transition: width 0.25s;            /* Anima a mudança de largura */
+}
+
+
+/* ============================================================
+   8. ÁREA PRINCIPAL
+   Controla a área onde os exercícios e os painéis são exibidos.
+   ============================================================ */
+
+main {
+    padding: 24px;
+    max-width: 1500px;                 /* Limita a largura máxima */
+    width: 100%;
+    margin: 0 auto;                    /* Centraliza horizontalmente */
+}
+
+
+/* ============================================================
+   9. PAINEL DE BOAS-VINDAS
+   Caixa de destaque com uma apresentação da aplicação.
+   ============================================================ */
+
+.welcome {
+    background: linear-gradient(120deg, #182744, #172039);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+
+/* Título do painel de boas-vindas. */
+.welcome h2 {
+    margin: 0 0 5px;
+    font-size: 25px;
+}
+
+
+/* Texto descritivo do painel. */
+.welcome p {
+    margin: 0;
+    color: var(--muted);
+    max-width: 850px;
+}
+
+
+/* ============================================================
+   10. BARRA DE FERRAMENTAS
+   Organiza ações, botões e informações auxiliares.
+   ============================================================ */
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;                   /* Permite quebrar linhas */
+    margin: 18px 0;
+}
+
+
+/* Pequenos rótulos acima de títulos ou seções. */
+.eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   11. LAYOUT DOS PAINÉIS
+   Cria duas colunas para distribuir os cartões da interface.
+   A primeira recebe um pouco mais de espaço que a segunda.
+   ============================================================ */
+
+.layout {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.12fr)
+        minmax(310px, 0.88fr);
+    gap: 17px;
+    align-items: start;                /* Alinha pelo topo */
+}
+
+
+/* Cartão genérico usado em diferentes partes da interface. */
+.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;                  /* Respeita os cantos arredondados */
+}
+
+
+/* Cabeçalho de cada cartão. */
+.card-head {
+    padding: 15px 17px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+/* Título no cabeçalho do cartão. */
+.card-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+
+/* Área de conteúdo interno do cartão. */
+.card-body {
+    padding: 17px;
+}
+
+
+/* Título de um exercício. */
+.exercise-title {
+    font-size: 22px;
+    margin: 5px 0 7px;
+}
+
+
+/* Enunciado ou descrição do exercício. */
+.prompt {
+    color: #d5def2;
+    margin: 0 0 16px;
+}
+
+
+/* ============================================================
+   12. ETIQUETAS E INDICADORES
+   A classe pill cria pequenas etiquetas arredondadas.
+   As variações indicam estados diferentes.
+   ============================================================ */
+
+/* Aparência padrão de uma etiqueta. */
+.pill {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;              /* Formato de cápsula */
+    padding: 4px 9px;
+    font-size: 11px;
+    color: var(--muted);
+    gap: 5px;
+}
+
+
+/* Etiqueta de sucesso. */
+.pill.good {
+    color: var(--good);
+    border-color: #27674e;
+}
+
+
+/* Etiqueta de erro. */
+.pill.bad {
+    color: var(--bad);
+    border-color: #703a48;
+}
+
+
+/* Etiqueta do item ativo. */
+.pill.active {
+    color: var(--accent);
+    border-color: #2b726d;
+}
+
+
+/* ============================================================
+   13. EDITOR DE SQL
+   Estiliza a área em que o estudante escreve suas consultas.
+   Usa uma fonte monoespaçada, comum em editores de código.
+   ============================================================ */
+
+.editor {
+    width: 100%;
+    min-height: 155px;                 /* Altura mínima do editor */
+    resize: vertical;                  /* Permite redimensionar verticalmente */
+    background: #080e1b;
+    color: #eaf3ff;
+    border: 1px solid #33425f;
+    border-radius: 10px;
+    padding: 14px;
+    font: 14px/1.7 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          monospace;
+    tab-size: 2;                       /* Exibe tabulações com dois espaços */
+    outline: none;                     /* Remove o contorno padrão */
+}
+
+
+/* Destaca o editor quando o usuário clica nele. */
+.editor:focus {
+    border-color: var(--accent);
+}
+
+
+/* Texto de orientação abaixo do editor. */
+.editor-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 7px 0 13px;
+}
+
+
+/* Grupo de botões de ação, como executar ou limpar. */
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   14. MENSAGENS DE FEEDBACK
+   Caixa usada para mostrar resultados, erros e orientações.
+   ============================================================ */
+
+/* Aparência geral da caixa de feedback. */
+.feedback {
+    margin-top: 14px;
+    border-radius: 10px;
+    padding: 12px 13px;
+    background: #0b1323;
+    border: 1px solid var(--line);
+    font-size: 13px;
+}
+
+
+/* Feedback positivo. */
+.feedback.good {
+    border-color: #27674e;
+    color: #baf7d9;
+}
+
+
+/* Feedback de erro. */
+.feedback.bad {
+    border-color: #703a48;
+    color: #ffd0d0;
+}
+
+
+/* Feedback de aviso. */
+.feedback.warn {
+    border-color: #6b5930;
+    color: #ffe6aa;
+}
+
+
+/* Destaca o título da mensagem de feedback. */
+.feedback strong {
+    display: block;
+    margin-bottom: 3px;
+}
+
+
+/* ============================================================
+   15. TABELAS DE RESULTADOS E ESTRUTURA DO BANCO
+   Define o comportamento visual das tabelas.
+   ============================================================ */
+
+/* Permite rolagem quando a tabela excede o espaço disponível. */
+.results {
+    overflow: auto;
+    max-height: 330px;
+}
+
+
+/* Estilo compartilhado pelas tabelas de resultados e de esquema. */
+.results table,
+.schema-table {
+    border-collapse: collapse;         /* Junta as bordas das células */
+    width: 100%;
+    font-size: 12px;
+}
+
+
+/* Células e cabeçalhos das tabelas. */
+.results th,
+.results td,
+.schema-table th,
+.schema-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    white-space: nowrap;               /* Evita quebra de texto nas células */
+}
+
+
+/* Cabeçalho da tabela de resultados. */
+.results th {
+    background: #1b2842;
+    color: #c8d5ef;
+    position: sticky;                  /* Mantém o cabeçalho visível */
+    top: 0;
+}
+
+
+/* Mensagem exibida quando não há dados para mostrar. */
+.empty {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 15px;
+}
+
+
+/* ============================================================
+   16. ABAS
+   Organiza botões usados para alternar entre diferentes painéis.
+   ============================================================ */
+
+/* Contêiner das abas. */
+.tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+
+/* Botão de uma aba. */
+.tab {
+    padding: 7px 10px;
+    font-size: 12px;
+}
+
+
+/* Aparência da aba selecionada. */
+.tab.active {
+    background: var(--accent);
+    color: #071522;
+    border-color: var(--accent);
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   17. CAIXA DE DICAS
+   Apresenta dicas e orientações relacionadas aos exercícios.
+   ============================================================ */
+
+.hint-box {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #10192b;
+}
+
+
+/* Título da dica. */
+.hint-box h4 {
+    margin: 0 0 5px;
+    font-size: 13px;
+}
+
+
+/* Texto da dica. */
+.hint-box p {
+    margin: 0;
+    font-size: 13px;
+    color: #c8d5ec;
+}
+
+
+/* ============================================================
+   18. CLASSE UTILITÁRIA PARA OCULTAR ELEMENTOS
+   Pode ser adicionada ou removida pelo JavaScript.
+   !important garante prioridade sobre outras declarações
+   de display que tenham menor prioridade.
+   ============================================================ */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ============================================================
+   19. EXPLORADOR DO BANCO DE DADOS
+   Organiza os elementos usados para visualizar tabelas e relações.
+   ============================================================ */
+
+/* Contêiner do layout do explorador. */
+.db-layout {
+    display: grid;
+    grid-template-columns: 1fr;         /* Uma coluna */
+    gap: 12px;
+}
+
+
+/* Grupo de botões para selecionar tabelas. */
+.table-pick {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+
+/* Caixa que representa uma relação entre tabelas. */
+.relation {
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin: 8px 0;
+    background: #10192b;
+    font-size: 12px;
+}
+
+
+/* Destaca o texto principal da relação. */
+.relation strong {
+    color: var(--accent);
+}
+
+
+/* Cor e espaçamento da seta que representa a relação. */
+.rel-arrow {
+    color: var(--accent2);
+    font-weight: 800;
+    padding: 0 5px;
+}
+
+
+/* ============================================================
+   20. LISTA DE EXERCÍCIOS
+   Distribui os exercícios em seis colunas no layout padrão.
+   ============================================================ */
+
+.exercise-list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 7px;
+}
+
+
+/* Botão individual de seleção de exercício. */
+.exercise-pick {
+    padding: 9px 5px;
+    font-size: 12px;
+    text-align: center;
+}
+
+
+/* Exercício que já foi concluído. */
+.exercise-pick.done {
+    border-color: #27674e;
+    color: var(--good);
+}
+
+
+/* Exercício selecionado no momento. */
+.exercise-pick.current {
+    border-color: var(--accent);
+    background: #193b40;
+}
+
+
+/* Títulos de seções internas. */
+.section-title {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   21. DESAFIOS
+   Organiza os cartões dos desafios em duas colunas.
+   ============================================================ */
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+
+/* Cartão individual de um desafio. */
+.challenge {
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: #10192b;
+}
+
+
+/* Título do desafio. */
+.challenge h4 {
+    margin: 0 0 5px;
+}
+
+
+/* Descrição do desafio. */
+.challenge p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   22. TEXTOS AUXILIARES E RODAPÉ
+   Classes para informações secundárias e observações finais.
+   ============================================================ */
+
+/* Texto pequeno, geralmente usado em informações auxiliares. */
+.small {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+
+/* Observação exibida no rodapé de uma seção ou da página. */
+.footer-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+
+/* ============================================================
+   23. MENU PARA DISPOSITIVOS MÓVEIS
+   Fica oculto no layout padrão e pode ser exibido por outras
+   regras responsivas ou por ajustes no HTML/JavaScript.
+   ============================================================ */
+
+.mobile-menu {
+    display: none;
+}
+
+
+/* ============================================================
+   24. TUTORIAL EXPANSÍVEL
+   Estiliza o elemento HTML <details>, que pode ser aberto
+   e fechado pelo usuário, e seu título <summary>.
+   ============================================================ */
+
+/* Caixa externa do tutorial. */
+details.tutorial {
+    margin-top: 14px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 12px 14px;
+    background: #10192b;
+}
+
+
+/* Título clicável que abre ou fecha o tutorial. */
+details.tutorial summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+
+/* Texto e itens de lista dentro do tutorial. */
+details.tutorial p,
+details.tutorial li {
+    font-size: 13px;
+    color: #c8d5ec;
+}
+
+
+/* ============================================================
+   25. RESPONSIVIDADE — TELAS MÉDIAS
+   Quando a tela tem até 1050px de largura:
+   - Os painéis principais passam para uma coluna.
+   - A barra lateral fica um pouco mais estreita.
+   - O espaçamento do conteúdo principal diminui.
+   ============================================================ */
+
+@media (max-width: 1050px) {
+
+    /* Empilha os painéis em uma única coluna. */
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduz a largura da barra lateral. */
+    .app {
+        grid-template-columns: 215px minmax(0, 1fr);
+    }
+
+    /* Diminui o espaçamento interno do conteúdo. */
+    main {
+        padding: 17px;
+    }
+}
+
+
+/* ============================================================
+   26. RESPONSIVIDADE — CELULARES
+   Quando a tela tem até 720px de largura:
+   - A navegação se adapta a uma coluna.
+   - A barra lateral passa a permitir rolagem horizontal.
+   - Alguns textos secundários são ocultados.
+   - As grades de exercícios e desafios são reorganizadas.
+   ============================================================ */
+
+@media (max-width: 720px) {
+
+    /* Reduz o espaço do cabeçalho e alinha seus itens no topo. */
+    header {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
+    /* Diminui a distância entre as estatísticas. */
+    .headerstats {
+        gap: 8px;
+    }
+
+    /* Oculta as estatísticas em telas pequenas. */
+    .stat {
+        display: none;
+    }
+
+    /* Organiza o aplicativo em uma única coluna. */
+    .app {
+        grid-template-columns: 1fr;
+    }
+
+    /* Transforma a barra lateral em uma faixa horizontal rolável. */
+    aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 9px;
+        display: flex;
+        overflow: auto;
+        gap: 5px;
+    }
+
+    /* Oculta títulos auxiliares e o painel de progresso. */
+    .side-title,
+    .progress-wrap {
+        display: none;
+    }
+
+    /* Cada módulo mantém uma largura mínima na navegação horizontal. */
+    .module-btn {
+        min-width: 175px;
+        width: auto;
+        margin: 0;
+    }
+
+    /* Oculta os detalhes de cada módulo para economizar espaço. */
+    .module-btn .module-meta {
+        display: none;
+    }
+
+    /* Reduz o espaçamento da área principal. */
+    main {
+        padding: 12px;
+    }
+
+    /* Diminui o espaçamento do painel de boas-vindas. */
+    .welcome {
+        padding: 17px;
+    }
+
+    /* Reduz o tamanho do título de boas-vindas. */
+    .welcome h2 {
+        font-size: 22px;
+    }
+
+    /* Mostra três exercícios por linha nos celulares. */
+    .exercise-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* Exibe os desafios em uma única coluna. */
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Practice Lab — Iraê César Brandão</title>
+<meta name="description" content="Sistema SQL Practice Lab">	
+    	<meta name="author" content="Iraê César Brandão - Desenvolvedor Luck Way Informática.">
+    	<meta name="keywords" content="SQL, practice lab, Relacionamentos, tabelas, exercises, testes, manipulação de dados. ">
+
+<!-- Arquivo de estilos CSS -->
+    <link rel="stylesheet" href="style.css">
+<!-- Arquivo de Script JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js">
+      <script src="script.js"></script>
+
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">SQL</div><div><h1>SQL Practice Lab</h1><p>Aprenda SQL praticando • Autor: Iraê César Brandão</p></div></div>
+  <div class="headerstats"><div class="stat">PROGRESSO<strong id="headerProgress">0%</strong></div><div class="stat">PONTOS<strong id="headerScore">0 / 360</strong></div><button id="resetBtn" title="Reiniciar progresso desta sessão">Reset session</button></div>
+</header>
+<div class="app">
+<aside>
+  <div class="side-title">Learning path</div>
+  <div class="progress-wrap"><div class="progress-label"><span>Course progress</span><strong id="sidePct">0%</strong></div><div class="track"><div id="sideBar"></div></div></div>
+  <nav id="moduleNav"></nav>
+  <button class="module-btn" id="challengesNav" style="margin-top:10px"><span class="module-num">★</span><span><span class="module-name">Challenges</span><span class="module-meta">Desafios integradores</span></span></button>
+  <details class="tutorial" style="margin:10px 2px"><summary>SQL Quick Guide</summary><p>SQL é uma linguagem para consultar e manipular dados em tabelas.</p><ul><li><code>SELECT</code>: escolhe colunas.</li><li><code>FROM</code>: indica a tabela.</li><li><code>WHERE</code>: filtra registros.</li><li><code>ORDER BY</code>: ordena resultados.</li><li><code>GROUP BY</code>: agrupa registros.</li><li><code>JOIN</code>: combina tabelas relacionadas.</li><li><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>: alteram dados.</li></ul><p>Complete as lacunas no editor e selecione <b>Run Query</b>. Use as dicas gradualmente. Tentativas são ilimitadas.</p></details>
+</aside>
+<main>
+  <section class="welcome"><div class="eyebrow">Interactive SQL learning environment</div><h2>Aprenda fazendo.</h2><p>Explore um banco escolar fictício, complete as lacunas no editor SQL e execute consultas reais. As instruções estão em português; comandos e mensagens técnicas estão em inglês.</p></section>
+  <div class="toolbar"><div><div class="eyebrow" id="moduleEyebrow">MODULE 1</div><h2 id="moduleHeading" style="margin:3px 0 0">Primeiras consultas</h2></div><div class="pill" id="levelPill">Beginner</div></div>
+  <div id="workArea">
+    <div class="exercise-list" id="exerciseList" style="margin-bottom:14px"></div>
+    <div class="layout">
+      <section class="card">
+        <div class="card-head"><h3>Exercise Workspace</h3><span class="pill" id="exerciseStatus">Not Started</span></div>
+        <div class="card-body">
+          <div class="eyebrow" id="exerciseKicker">EXERCISE 1 OF 6</div>
+          <h2 class="exercise-title" id="exerciseTitle">Exibir todos os alunos</h2>
+          <p class="prompt" id="exercisePrompt"></p>
+          <div class="small" style="margin-bottom:7px">SQL EDITOR · Substitua os marcadores <code>__BLANK1__</code> pela sua resposta.</div>
+          <textarea class="editor" id="sqlEditor" spellcheck="false" aria-label="SQL editor"></textarea>
+          <p class="editor-note">Dica: mantenha o SQL válido. Você pode editar e executar quantas vezes precisar.</p>
+          <div class="actions"><button class="primary" id="runBtn">▶ Run Query</button><button id="hintBtn">Get Hint</button><button id="solutionBtn">Show Solution</button><button id="resetCodeBtn">Reset Code</button></div>
+          <div id="feedback" class="feedback" aria-live="polite"><strong>Ready to practice</strong>Complete the SQL and select Run Query.</div>
+          <div id="hintArea"></div>
+          <div class="actions" style="margin-top:14px;justify-content:space-between"><button id="prevBtn">← Previous</button><button class="primary" id="nextBtn">Next →</button></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h3>Database Explorer</h3><button id="explorerToggle">Collapse</button></div>
+        <div class="card-body" id="explorerBody">
+          <p class="small" style="margin-top:0">Explore a estrutura, os tipos de dados, as chaves e uma amostra dos registros.</p>
+          <div class="table-pick" id="tablePick"></div>
+          <div id="schemaArea"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px"><h4 class="section-title" style="margin:0">Records</h4><button id="showAllBtn">Show all records</button></div>
+          <div id="recordsArea" class="results" style="margin-top:8px"></div>
+          <h4 class="section-title" style="margin-top:17px">Relationships</h4>
+          <div id="relationsArea"></div>
+        </div>
+      </section>
+    </div>
+    <p class="footer-note">O progresso e a pontuação ficam somente nesta sessão. Cada exercício usa uma cópia restaurável do banco de dados. O mecanismo SQLite é carregado pelo navegador quando há conexão com a internet.</p>
+  </div>
+  <section id="challengesArea" class="hidden">
+    <div class="card"><div class="card-head"><h3>Challenges — Integrated Practice</h3><span class="pill active">Bonus section</span></div><div class="card-body"><p>Desafios adicionais combinam conteúdos de vários módulos. Eles são independentes da sequência principal e concedem pontos bônus.</p><div class="challenge-grid" id="challengeGrid"></div><div id="challengeWorkspace" style="margin-top:16px"></div></div></div>
+  </section>
+</main>
+</div>
+
+<!-- SCRIPT JS -  Carrega o JavaScript antes do fechamento do body -->
+ <script src="script.js"></script>
+
+
+</body>
+
+ <footer>
+       <p  style="text-align:center; font-size: 12px;"> © 2026 — Iraê César Brandão (Dev)  (Page for academic purposes.) — <a href="license.html" style="color: blue;">Licença Acadêmica (AREUL)</a></p>
+  </footer>
+
+</html>
